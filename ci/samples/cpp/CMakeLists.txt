@@ -5,7 +5,7 @@ include(CTest)
 find_package(CMakeSwig REQUIRED)
 
 add_executable(sample main.cpp)
-#target_compile_features(sample PUBLIC cxx_std_11)
+#target_compile_features(sample PUBLIC cxx_std_14)
 set_target_properties(sample PROPERTIES
   CXX_STANDARD 11
   CXX_STANDARD_REQUIRED ON
