@@ -46,4 +46,8 @@ void Foo::setInt64(int64_t input) {
   _int64Value = input;
 }
 
+void Foo::justThrow() {
+    throw std::runtime_error("I'm an object, and I threw something.");
+}
+
 } // namespace foo

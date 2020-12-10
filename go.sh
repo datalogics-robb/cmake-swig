@@ -1,13 +1,18 @@
 #/bin/bash
-
-export CC=/opt/freeware/bin/gcc
-export CXX=/opt/freeware/bin/g++
-export CXXFLAGS='-mcpu=power8 -pthread -mvsx -maix64 -std=c++14'
-export CFLAGS='-mcpu=power8 -pthread -mvsx -maix64'
-export JAVA_HOME=/usr/java8_64
+UNAME_S=$(uname -s)
 export VERBOSE=1
 
-mkdir -p build
-cmake -S . -B build
-cmake --build build
-$JAVA_HOME/bin/java -Djava.library.path=build -cp target/testexception-1.0-SNAPSHOT.jar TestException
+case X$UNAME_S in
+   XAIX)
+    # for AIX
+mkdir -p build_aix && \
+	conan install . -if build_aix -pr gcc-8-aix71-64 --build missing --update  "$@" \
+	&& conan build . -bf build_aix
+    ;;
+   XLinux)
+       rm -rf build_lnx && \
+	mkdir -p build_lnx && \
+	conan install . -if build_lnx -pr llvm-toolset-7 --build missing --update  "$@" \
+	&& conan build . -bf build_lnx
+       ;;
+esac

@@ -51,6 +51,10 @@ class Foo {
    * @param input A member value.*/
   void setInt64(int64_t input);
 
+    /*! @brief Method of Foo class.
+     * @return nothing, just throw.*/
+    void justThrow();
+
   //! @}
 
   //! @brief Print object for debug.
