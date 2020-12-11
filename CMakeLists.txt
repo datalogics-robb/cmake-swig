@@ -1,5 +1,6 @@
 # This file is just an orchestration
 cmake_minimum_required(VERSION 3.14)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Apple: Don't modify install_name when touching RPATH.
@@ -46,7 +47,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(KEEP_RPATHS)
-
+find_package(Catch2)
 # Layout build dir like install dir
 include(GNUInstallDirs)
 if(UNIX)
@@ -88,23 +89,6 @@ message(STATUS "Build Java: ${BUILD_JAVA}")
 message(STATUS "Build .Net: ${BUILD_DOTNET}")
 
 include(CTest)
-if(BUILD_TESTING)
-  include(FetchContent)
-  #FetchContent_Declare(
-  #  googletest
-  #  GIT_REPOSITORY https://github.com/google/googletest.git
-  #  GIT_TAG master)
-  #set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-  #FetchContent_MakeAvailable(googletest)
-  FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG devel
-    GIT_SHALLOW TRUE
-    GIT_PROGRESS TRUE
-    )
-  FetchContent_MakeAvailable(Catch2)
-endif()
 
 include(cpp)
 

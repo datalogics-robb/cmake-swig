@@ -21,15 +21,15 @@ class RobConan(ConanFile):
         'build_python': False,
         'build_dotnet': False,
     }
-    generators = 'cmake', 'virtualenv', 'json'
+    generators = 'cmake', 'virtualenv', 'json', 'cmake_find_package'
 
     def build_requirements(self):
         self.build_requires('doxygen_installer/1.8.20@datalogics/stable')
         self.build_requires('swig/4.0.2@')
+        self.build_requires('catch2/2.13.3@')
         
     def requirements(self):
         # Deeper requirements listed first so that overriding works.
-        self.requires('catch2/2.13.3@', private=True)
         self.requires('zlib/APPROVED@datalogics/alias', private=True)
         if self.settings.os == 'Linux' and self.settings.arch == 'x86':
             # We can't get AdoptOpenJDK 8 for Linux i686 so get it elsewhere
