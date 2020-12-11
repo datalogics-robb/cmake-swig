@@ -3,7 +3,7 @@ import os
 from conans  import ConanFile, CMake, tools
 
 class RobConan(ConanFile):
-    name = 'robb'
+    name = 'CMakeSwig'
     version = '1.0.0'
     license = 'prop'
     url = 'https://github.com/datalogics-robb/cmake-swig'
@@ -11,9 +11,15 @@ class RobConan(ConanFile):
     settings = 'os', 'compiler', 'build_type', 'arch'
     options = {
         'verbose': [True, False],
+        'build_java': [True, False],
+        'build_python': [True, False],
+        'build_dotnet': [True, False],
         }
     default_options = {
         'verbose': True,
+        'build_java': True,
+        'build_python': False,
+        'build_dotnet': False,
     }
     generators = 'cmake', 'virtualenv', 'json'
 
@@ -33,21 +39,20 @@ class RobConan(ConanFile):
 
     def configure_cmake(self):
         cmake = CMake(self,
-                      # You can specify the following verbosity levels: q[uiet], m[inimal], n[ormal], d[etailed],
-                      # and diag[nostic].
                       msbuild_verbosity="normal" if self.options.verbose else "minimal")
-
         cmake.definitions['CMAKE_VERBOSE_MAKEFILE'] = str(self.options.verbose).upper()
         if self.settings.os == "Macos":
             cmake.generator = "Xcode"
-
         if cmake.generator.startswith("Visual Studio"):
             # Conan doesn't usually pass this to Visual Studio builds, but APDFL's CMakeLists.txt
             # depends on it
             cmake.definitions['CMAKE_BUILD_TYPE'] = cmake.build_type
-
+        # Enable building Java
+        cmake.definitions['BUILD_JAVA'] = 'ON' if self.options.build_java else 'OFF'
         # Enable building CSharp
-        # cmake.definitions['DLI'] = 'ON' if self.options.with_dli else 'OFF'
+        cmake.definitions['BUILD_DOTNET'] = 'ON' if self.options.build_dotnet else 'OFF'
+        # Enable building Python
+        cmake.definitions['BUILD_PYTHON'] = 'ON' if self.options.build_python else 'OFF'
 
         # If you're ever wondering what commands these are executing, put
         # CONAN_PRINT_RUN_COMMANDS=1 into the environment.

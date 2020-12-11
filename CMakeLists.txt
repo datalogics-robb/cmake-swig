@@ -44,6 +44,9 @@ if(NOT CMAKE_BUILD_TYPE)
     FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(KEEP_RPATHS)
+
 # Layout build dir like install dir
 include(GNUInstallDirs)
 if(UNIX)
@@ -77,7 +80,7 @@ endif()
 # By default only the ortools C++ library is built.
 option(BUILD_CXX "Build C++ library" ON)
 option(BUILD_PYTHON "Build Python Library" OFF)
-option(BUILD_JAVA "Build Java Library" ON)
+option(BUILD_JAVA "Build Java Library" OFF)
 option(BUILD_DOTNET "Build .NET Library" OFF)
 message(STATUS "Build C++ library: ${BUILD_CXX}")
 message(STATUS "Build Python: ${BUILD_PYTHON}")
