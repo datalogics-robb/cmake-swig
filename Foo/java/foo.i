@@ -26,6 +26,8 @@ namespace foo {
 %unignore Foo::getInt64() const;
 %unignore Foo::setInt64(int64_t);
 
+%unignore Foo::justThrow();
+
 %rename ("toString") Foo::operator();
 } // namespace foo
 

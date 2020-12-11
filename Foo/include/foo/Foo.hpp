@@ -52,7 +52,7 @@ class Foo {
   void setInt64(int64_t input);
 
     /*! @brief Method of Foo class.
-     * @return nothing, just throw.*/
+     *  do nothing, just throw.*/
     void justThrow();
 
   //! @}
