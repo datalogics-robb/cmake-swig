@@ -22,6 +22,13 @@ TEST_CASE("Foo::Ctor", "[Foo]") {
   }
 }
 
+TEST_CASE("Foo::justThrow()", "[Foo]") {
+    SECTION("verify throw") {
+        Foo obj;
+        REQUIRE_THROWS_WITH( obj.justThrow(), "I'm an object, and I threw something." );
+    }
+}
+
 SCENARIO("Foo Int", "[Foo]") {
   GIVEN("A Foo instance") {
     Foo foo;
