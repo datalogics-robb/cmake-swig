@@ -47,5 +47,19 @@ public class CMakeSwigTest {
       throw new RuntimeException(ex);
     }
   }
+
+  @Test
+  public void testThrow() {
+    Loader.loadNativeLibraries();
+    try {
+      Foo.hello(1);
+      Foo f = new Foo();
+      f.justThrow();
+      System.out.printf("Foo::justThrow() did not throw\n");
+    } catch (Exception ex) {
+      System.out.printf("Foo::justThrow() threw and was caught\n");
+      throw new RuntimeException(ex);
+    }
+  }
 }
 
