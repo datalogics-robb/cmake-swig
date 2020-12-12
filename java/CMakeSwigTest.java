@@ -5,6 +5,8 @@ import org.mizux.cmakeswig.bar.Bar;
 import org.mizux.cmakeswig.foo.Foo;
 import org.mizux.cmakeswig.foobar.FooBar;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+
 
 /** @author Mizux */
 public class CMakeSwigTest {
@@ -51,15 +53,14 @@ public class CMakeSwigTest {
   @Test
   public void testThrow() {
     Loader.loadNativeLibraries();
-    try {
-      Foo.hello(1);
-      Foo f = new Foo();
-      f.justThrow();
-      System.out.printf("Foo::justThrow() did not throw\n");
-    } catch (Exception ex) {
-      System.out.printf("Foo::justThrow() threw and was caught\n");
-      throw new RuntimeException(ex);
-    }
+    Foo.hello(1);
+    Foo f = new Foo();
+    Exception exception = Assertions.assertThrows(RuntimeException.class, () -> {
+              f.justThrow();
+	});
+    String expectedMessage = "I'm an object, and I threw something.";
+    String actualMessage = exception.getMessage();
+    Assertions.assertTrue(actualMessage.contains(expectedMessage));
   }
 }
 

@@ -1,6 +1,7 @@
 /*
  * Copyright 2017 Datalogics, Inc.
  */
+improt org.mizux.cmakeswig.foo;
 
 public class TestException {
     static {

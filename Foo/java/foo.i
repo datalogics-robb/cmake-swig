@@ -2,6 +2,7 @@
 
 %include "std_string.i"
 %include "base.i"
+%include "exception.i"
 
 // Add necessary symbols to generated header
 %{
@@ -10,6 +11,13 @@
 
 %ignore "";
 %define %unignore %rename("%s") %enddef
+
+%exception {
+    try {
+        $action
+    }
+    SWIG_CATCH_STDEXCEPT
+}
 
 %unignore foo;
 namespace foo {
@@ -33,5 +41,7 @@ namespace foo {
 
 // Process symbols in header
 %include "foo/Foo.hpp"
+
+%exception;
 
 %unignore ""; // unignore all
