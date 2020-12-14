@@ -31,6 +31,7 @@ message(STATUS "Found JNI: ${JNI_FOUND}")
 
 # Find maven
 # On windows mvn spawn a process while mvn.cmd is a blocking command
+
 if(UNIX)
   set(MAVEN_EXECUTABLE ${CMAKE_SOURCE_DIR}/mvnw)
   # find_program(MAVEN_EXECUTABLE mvn)
@@ -64,8 +65,12 @@ set(JAVA_PACKAGE_PATH src/main/java/org/mizux/cmakeswig)
 set(JAVA_RESOURCES_PATH src/main/resources)
 if(APPLE)
   set(NATIVE_IDENTIFIER darwin)
-elseif(UNIX)
-  set(NATIVE_IDENTIFIER linux-x86-64)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(NATIVE_IDENTIFIER linux-x86-64)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
+    set(NATIVE_IDENTIFIER solaris-sparcv9)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "AIX")
+    set(NATIVE_IDENTIFIER aix-ppc64)
 elseif(WIN32)
   set(NATIVE_IDENTIFIER win32-x86-64)
 else()
