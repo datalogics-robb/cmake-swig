@@ -16,5 +16,6 @@ elseif(UNIX AND NOT APPLE)
 endif()
 target_link_libraries(${NAME}
   PRIVATE
-    Catch2::Catch2 ${PROJECT_NAME}::Foo)
+  Catch2 # Catch2::Catch2
+  ${PROJECT_NAME}::Foo)
 add_test(NAME ${NAME} COMMAND ${NAME})

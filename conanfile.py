@@ -26,7 +26,7 @@ class RobConan(ConanFile):
     def build_requirements(self):
         self.build_requires('doxygen_installer/1.8.20@datalogics/stable')
         self.build_requires('swig/4.0.2@')
-        self.build_requires('catch2/2.13.3@')
+        #self.build_requires('catch2/2.13.3@')
         
     def requirements(self):
         # Deeper requirements listed first so that overriding works.
