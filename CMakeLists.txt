@@ -45,9 +45,9 @@ if(NOT CMAKE_BUILD_TYPE)
     FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(KEEP_RPATHS)
-#find_package(Catch2)
+#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+#conan_basic_setup(KEEP_RPATHS)
+
 # Layout build dir like install dir
 include(GNUInstallDirs)
 if(UNIX)
